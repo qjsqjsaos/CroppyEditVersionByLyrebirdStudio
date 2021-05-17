@@ -23,8 +23,11 @@ class AspectRatioListAdapter : RecyclerView.Adapter<AspectRatioListAdapter.Aspec
 
     override fun getItemCount(): Int = aspectRatioList.size
 
-    override fun onBindViewHolder(holder: AspectRatioItemViewHolder, position: Int) =
-        holder.bind(aspectRatioList[position])
+    override fun onBindViewHolder(holder: AspectRatioItemViewHolder, position: Int){
+
+        return holder.bind(aspectRatioList[position])
+    }
+
 
     class AspectRatioItemViewHolder(
         private val binding: ItemAspectRatioBinding,

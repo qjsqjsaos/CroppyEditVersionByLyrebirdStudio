@@ -3,6 +3,8 @@ package com.lyrebirdstudio.aspectratiorecyclerviewlib.aspectratio
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.view.Gravity
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +48,8 @@ class AspectRatioRecyclerView @JvmOverloads constructor(
             socialActiveColor,
             socialPassiveColor
         )
+
+
 
         layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
 

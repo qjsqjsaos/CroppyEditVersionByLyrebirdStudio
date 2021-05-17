@@ -1,12 +1,15 @@
 package com.lyrebirdstudio.croppylib.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.lyrebirdstudio.aspectratiorecyclerviewlib.aspectratio.model.AspectRatio
 import com.lyrebirdstudio.croppylib.main.CropRequest
 import com.lyrebirdstudio.croppylib.R
 import com.lyrebirdstudio.croppylib.databinding.FragmentImageCropBinding
@@ -23,6 +26,8 @@ class ImageCropFragment : Fragment() {
 
     var onCancelClicked: (() -> Unit)? = null
 
+    val TAG: String = "로그"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ImageCropViewModel::class.java)
@@ -38,21 +43,35 @@ class ImageCropFragment : Fragment() {
     ): View? {
 
         viewModel.getCropRequest()?.let {
+            Log.d(TAG, "ImageCropFragment - onCreateView() called1")
+
+
+            // 0.1초 뒤에 바로 크롭 기능을 부여한다.
+            Handler().postDelayed({
+                binding.cropView.setAspectRatio(AspectRatio.ASPECT_9_16)
+            },100L)
+
             binding.cropView.setTheme(it.croppyTheme)
             binding.recyclerViewAspectRatios.setActiveColor(it.croppyTheme.accentColor)
             binding.recyclerViewAspectRatios.excludeAspectRatio(*it.excludedAspectRatios.toTypedArray())
+
         }
 
         binding.recyclerViewAspectRatios.setItemSelectedListener {
+            Log.d(TAG, "ImageCropFragment - onCreateView() called2")
             binding.cropView.setAspectRatio(it.aspectRatioItem.aspectRatio)
+            Log.d(TAG, "ImageCropFragment - onCreateView() called2-1")
             viewModel.onAspectRatioChanged(it.aspectRatioItem.aspectRatio)
+            Log.d(TAG, "ImageCropFragment - onCreateView() called2-2")
         }
 
         binding.imageViewCancel.setOnClickListener {
+            Log.d(TAG, "ImageCropFragment - onCreateView() called3")
             onCancelClicked?.invoke()
         }
 
         binding.imageViewApply.setOnClickListener {
+            Log.d(TAG, "ImageCropFragment - onCreateView() called4")
             onApplyClicked?.invoke(binding.cropView.getCroppedData())
         }
 

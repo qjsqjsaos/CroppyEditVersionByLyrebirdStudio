@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -104,17 +105,40 @@
                 android:id="@+id/cropView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/recyclerViewAspectRatios"
-                android:layout_marginTop="?attr/actionBarSize" />
+                android:layout_above="@+id/linear1"
+                android:layout_marginTop="?attr/actionBarSize"
+                tools:ignore="NotSibling" />
 
-            <com.lyrebirdstudio.aspectratiorecyclerviewlib.aspectratio.AspectRatioRecyclerView
-                android:id="@+id/recyclerViewAspectRatios"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_aspect_recyclerview"
                 android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                android:paddingTop="@dimen/padding_8dp"
-                android:paddingBottom="@dimen/padding_8dp" />
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_gravity="bottom">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"/>
+
+                <com.lyrebirdstudio.aspectratiorecyclerviewlib.aspectratio.AspectRatioRecyclerView
+                    android:id="@+id/recyclerViewAspectRatios"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:padding="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentBottom="true" />
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"/>
+
+            </LinearLayout>
+
 
         </RelativeLayout>
 
